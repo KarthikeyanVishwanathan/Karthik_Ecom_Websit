@@ -1,0 +1,30 @@
+Karthik_Ecom_Websit Project Dependency files
+
+1.install node module
+	npm init
+	
+2. Create folder name like frontend, backend
+
+3.change to frontend => install vite => npm create vite@latest
+	project name : ./
+	intall node module=> npm i
+	
+4.Install express js in ecom package json=> npm i express
+change module type in package json. type : module
+
+5.create server.js file under backend.
+
+6.follow express js website route 
+
+7.run server js file using below command => node server.js
+8.install nodemon npm in backend file. add command in script tag in the package json like server : nodemon backend/server.js
+add another command like client : npm run dev --prefix frontend
+
+9.install concurrently npm. which is used to run multiple command at a same time
+
+10.remove unwanted files and code from frontend
+
+11.install tailwind css with vite in the frontend folder
+
+12.install daisyUi in the frontend folder
+13.
