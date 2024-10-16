@@ -1,36 +1,21 @@
-import { useState } from "react";
-import "./App.css";
+import React from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import { Outlet } from "react-router-dom";
+import "./index.css";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
-    <div className="navbar bg-base-100">
-      <div className="flex-1">
-        <a className="btn btn-ghost text-xl">ECom</a>
-      </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Cart</a>
-          </li>
-          <li>
-            <details>
-              <summary>Karthik</summary>
-              <ul className="bg-base-100 rounded-t-none p-2">
-                <li>
-                  <a>Light</a>
-                </li>
-                <li>
-                  <a>Logout</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <>
+      <Header />
+      <main className="min-h-lvh">
+        <div className="container mx-auto">
+          <Outlet />
+        </div>
+      </main>
+      <Footer />
+    </>
   );
-}
+};
 
 export default App;
