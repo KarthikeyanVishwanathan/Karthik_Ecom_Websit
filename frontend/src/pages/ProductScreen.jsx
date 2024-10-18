@@ -1,8 +1,9 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import products from "../../products";
-import axios from "axios";
+// import { useEffect, useState } from "react";
+// import products from "../../products";
+// import axios from "axios";
 import Rating from "../components/Rating";
+import { useGetProductByIdQuery } from "../slices/productsApiSlices";
 
 const ProductScreen = () => {
   // const { id } = useParams(); // Extract the dynamic product ID from the URL
@@ -19,20 +20,23 @@ const ProductScreen = () => {
   // }, [id]);
 
   const { id: productId } = useParams();
-  const [product, setProduct] = useState({});
+  // const [product, setProduct] = useState({});
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const { data } = await axios.get(
-        `http://localhost:5000/api/products/${productId}`
-      );
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     const { data } = await axios.get(
+  //       `http://localhost:5000/api/products/${productId}`
+  //     );
 
-      setProduct(data);
-    };
+  //     setProduct(data);
+  //   };
 
-    fetchProduct();
-  }, [productId]);
+  //   fetchProduct();
+  // }, [productId]);
 
+  const { data: product, error, isLoading } = useGetProductByIdQuery(productId);
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
   return (
     <div>
       <Link to="/">
