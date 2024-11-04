@@ -4,6 +4,9 @@ import { useParams, Link } from "react-router-dom";
 // import axios from "axios";
 import Rating from "../components/Rating";
 import { useGetProductByIdQuery } from "../slices/productsApiSlices";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { addToCart } from "../slices/cartSlice";
 
 const ProductScreen = () => {
   // const { id } = useParams(); // Extract the dynamic product ID from the URL
@@ -20,6 +23,12 @@ const ProductScreen = () => {
   // }, [id]);
 
   const { id: productId } = useParams();
+  const [qty, setQyt] = useState(1);
+  const dispatch = useDispatch();
+
+  const addToCartHandler = () => {
+    dispatch(addToCart({ ...product, qty }));
+  };
   // const [product, setProduct] = useState({});
 
   // useEffect(() => {
@@ -74,7 +83,10 @@ const ProductScreen = () => {
                 <div className="mt-4">
                   <h4 className="text-lg font-medium">Qty</h4>
                   <form className="mt-2">
-                    <select className="select select-primary w-full max-w-xs">
+                    <select
+                      className="select select-primary w-full max-w-xs"
+                      onChange={(e) => setQyt(Number(e.target.value))}
+                    >
                       {[...Array(product.countInStock).keys()].map((item) => (
                         <option key={item + 1}>{item + 1}</option>
                       ))}
@@ -85,6 +97,7 @@ const ProductScreen = () => {
 
               <div className="card-actions mt-6">
                 <button
+                  onClick={addToCartHandler}
                   disabled={product.countInStock === 0}
                   className="btn btn-primary w-full max-w-xs"
                 >
