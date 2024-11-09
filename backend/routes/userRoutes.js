@@ -13,12 +13,19 @@ import {
   updateUser,
 } from "../controller/userController.js";
 
-// import { protect } from "../middleware/authMiddleware.js"
+import { protect } from "../middleware/authMiddleware.js";
 
-router.route("/").post(registerUser).get(getUsers);
+router.route("/").post(registerUser).get(protect, getUsers);
 router.post("/logout", logoutUser);
 router.post("/login", authUser);
-router.route("/profile").get(getUserProfile).put(updateUserProfile);
-router.route("/:id").delete(deleteUser).get(getUserById).put(updateUser);
+router
+  .route("/profile")
+  .get(protect, getUserProfile)
+  .put(protect, updateUserProfile);
+router
+  .route("/:id")
+  .delete(protect, deleteUser)
+  .get(protect, getUserById)
+  .put(protect, updateUser);
 
 export default router;
