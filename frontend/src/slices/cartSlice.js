@@ -41,9 +41,32 @@ const cartSlice = createSlice({
 
       localStorage.setItem("cart", JSON.stringify(state));
     },
+    removeFromCart: (state, action) => {
+      state.cartItem = state.cartItem.filter((x) => x._id !== action.payload);
+
+      // Calculate item price
+      state.itemPrice = state.cartItem.reduce(
+        (acc, item) => acc + item.price * item.qty,
+        0
+      );
+
+      // Shipping price (if 100 rs free)
+      state.shippingPrice = state.itemPrice > 100 ? 0 : 20;
+
+      // GST Price
+      state.taxPrice = Number(0.18 * state.itemPrice);
+
+      // Total Price
+      state.totalPrice =
+        Number(state.itemPrice) +
+        Number(state.shippingPrice) +
+        Number(state.taxPrice);
+
+      localStorage.setItem("cart", JSON.stringify(state));
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
