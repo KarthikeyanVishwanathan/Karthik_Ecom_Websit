@@ -6,6 +6,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { notFound, errorHandler } from "./middleware/ErrorMiddleware.js";
 import cookieParser from "cookie-parser";
+import cartRoutes from "./routes/cartRoutes.js";
 
 const app = express();
 // app.use(cors());
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/cart", cartRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
